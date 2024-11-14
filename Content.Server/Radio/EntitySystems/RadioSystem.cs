@@ -155,7 +155,7 @@ public sealed class RadioSystem : EntitySystem
                 { "робототехник", "mediumpurple" },
                 { "старший научный сотрудник", "mediumpurple" },
                 { "снс", "mediumpurple" },
-                { "cервисный работник", "green" },
+                { "сервисный работник", "green" },
                 { "зоотехник", "green" },
                 { "репортёр", "green" },
                 { "репортер", "green" },
