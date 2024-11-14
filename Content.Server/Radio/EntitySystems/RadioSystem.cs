@@ -41,7 +41,7 @@ public sealed class RadioSystem : EntitySystem
         SubscribeLocalEvent<IntrinsicRadioReceiverComponent, RadioReceiveEvent>(OnIntrinsicReceive);
         SubscribeLocalEvent<IntrinsicRadioTransmitterComponent, EntitySpokeEvent>(OnIntrinsicSpeak);
     }
-	
+
 	/// <summary>
     /// Для EnityUid ищется карта в руках или в пда. Если карта нашлась, мы смотрим какая там работа и достаём её
     /// </summary>
@@ -104,6 +104,8 @@ public sealed class RadioSystem : EntitySystem
                 { "врио капитан", "yellow" },
                 { "цк", "yellow" },
                 { "центральное командование", "yellow" },
+                // Есть реально такая карта у ЦК... Я надеюсь эта должность никогда не понадобится...
+                { "неко-горничная", "yellow" },
                 { "агент центкома", "yellow" },
                 { "адъютант", "#3065e8" },
                 { "старший инженер", "#3065e8" },
@@ -134,14 +136,15 @@ public sealed class RadioSystem : EntitySystem
                 { "представитель цк", "yellow" },
                 { "представитель центком", "yellow" },
                 { "представитель центрального командования", "yellow" },
-                { "офицер сб", "red" },
-                { "кадет сб", "red" },
-                { "смотритель", "red" },
-                { "детектив", "red" },
-                { "старший офицер", "red" },
-                { "бригмед", "red" },
-                { "бригмедик", "red" },
-                { "бм", "red" },
+                { "офицер сб", "#ff2727" },
+                { "кадет сб", "#ff2727" },
+                { "смотритель", "#ff2727" },
+                { "детектив", "#ff2727" },
+                { "старший офицер", "#ff2727" },
+                { "со", "#ff2727" },
+                { "бригмед", "#ff2727" },
+                { "бригмедик", "#ff2727" },
+                { "бм", "#ff2727" },
                 { "инженер станции", "orange" },
                 { "инженер", "orange" },
                 { "атмосферный техник", "orange" },
@@ -172,8 +175,8 @@ public sealed class RadioSystem : EntitySystem
                 { "боксер", "#aaeeaf" },
                 { "ботаник", "#aaeeaf" },
                 { "бармен", "#aaeeaf" },
-                { "грузчик", "sandybrown" },
-                { "утилизатор", "sandybrown" },
+                { "грузчик", "#7b3f00" },
+                { "утилизатор", "#7b3f00" },
                 { "интерн", "skyblue" },
                 { "врач", "skyblue" },
 				{ "доктор", "skyblue" },
@@ -206,6 +209,7 @@ public sealed class RadioSystem : EntitySystem
                 { "медик рхбзз", "#C0C0C0" },
                 { "офицер синий щит", "#C0C0C0" },
                 { "офицер \"синий щит\"", "#C0C0C0" },
+                { "офицер «синий щит»", "#C0C0C0" },
                 { "осщ", "#C0C0C0" },
                 { "синий щит", "#C0C0C0" }
             };
@@ -254,7 +258,7 @@ public sealed class RadioSystem : EntitySystem
 		// Активируем оба наших метода ОБЯЗАТЕЛЬНО в данном порядке
         string? jobPlayer = GetJobPlayer(messageSource);
         string? color = GetColorPlayer(jobPlayer);
-		
+
         // TODO if radios ever garble / modify messages, feedback-prevention needs to be handled better than this.
         if (!_messages.Add(message))
             return;
@@ -262,7 +266,7 @@ public sealed class RadioSystem : EntitySystem
         var name = TryComp(messageSource, out VoiceMaskComponent? mask) && mask.Enabled
             ? mask.VoiceName
             : MetaData(messageSource).EntityName;
-			
+
 		// Если должность определена, добавляем
         if (jobPlayer != null)
         {
@@ -271,12 +275,12 @@ public sealed class RadioSystem : EntitySystem
         }
 
         name = FormattedMessage.EscapeText(name);
-		
+
 		// Если всё удачно определилось, мы присваиваем и цвет должности
         if ((color != null) && (jobPlayer != null))
         {
             // Мы получили необходимый результат
-            name = $"[b][color={color}]{name}[/color][/b]";
+            name = $"[bold][color={color}]{name}[/color][/bold]";
         }
 
         SpeechVerbPrototype speech;
