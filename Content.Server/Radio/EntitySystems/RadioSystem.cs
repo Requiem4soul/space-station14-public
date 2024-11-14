@@ -176,6 +176,7 @@ public sealed class RadioSystem : EntitySystem
                 { "утилизатор", "sandybrown" },
                 { "интерн", "skyblue" },
                 { "врач", "skyblue" },
+				{ "доктор", "skyblue" },
                 { "химик", "skyblue" },
                 { "парамедик", "skyblue" },
                 { "хирург", "skyblue" },
@@ -185,28 +186,28 @@ public sealed class RadioSystem : EntitySystem
                 { "агент внутренних дел", "pink" },
                 { "авд", "pink" },
                 { "магистрат", "pink" },
-                { "офицер специальных операций", "#7d1010" },
-                { "офицер спец операций", "#7d1010" },
-                { "осо", "#7d1010" },
-                { "дсо", "#7d1010" },
-                { "эскадрон смерти", "#7d1010" },
-                { "эс", "#7d1010" },
-                { "уборщик обр", "#7d1010" },
-                { "обр", "#7d1010" },
-                { "инженер обр", "#7d1010" },
-                { "служба безопасности обр", "#7d1010" },
-                { "медик обр", "#7d1010" },
-                { "лидер обр", "#7d1010" },
-                { "лидер рхбзз", "#7d1010" },
-                { "уборщик рхбзз", "#7d1010" },
-                { "рхбзз", "#7d1010" },
-                { "инженер рхбзз", "#7d1010" },
-                { "служба безопасности рхбзз", "#7d1010" },
-                { "медик рхбзз", "#7d1010" },
-                { "офицер синий щит", "#7d1010" },
-                { "офицер \"синий щит\"", "#7d1010" },
-                { "осщ", "#7d1010" },
-                { "синий щит", "#7d1010" }
+                { "офицер специальных операций", "#C0C0C0" },
+                { "офицер спец операций", "#C0C0C0" },
+                { "осо", "#C0C0C0" },
+                { "дсо", "#C0C0C0" },
+                { "эскадрон смерти", "#C0C0C0" },
+                { "эс", "#C0C0C0" },
+                { "уборщик обр", "#C0C0C0" },
+                { "обр", "#C0C0C0" },
+                { "инженер обр", "#C0C0C0" },
+                { "служба безопасности обр", "#C0C0C0" },
+                { "медик обр", "#C0C0C0" },
+                { "лидер обр", "#C0C0C0" },
+                { "лидер рхбзз", "#C0C0C0" },
+                { "уборщик рхбзз", "#C0C0C0" },
+                { "рхбзз", "#C0C0C0" },
+                { "инженер рхбзз", "#C0C0C0" },
+                { "служба безопасности рхбзз", "#C0C0C0" },
+                { "медик рхбзз", "#C0C0C0" },
+                { "офицер синий щит", "#C0C0C0" },
+                { "офицер \"синий щит\"", "#C0C0C0" },
+                { "осщ", "#C0C0C0" },
+                { "синий щит", "#C0C0C0" }
             };
             // Преобразуем jobPlayer к нижнему регистру для поиска в словаре
             string normalizedJob = jobPlayer.ToLower();
@@ -352,7 +353,7 @@ public sealed class RadioSystem : EntitySystem
         }
 
         // Так как теперь у нас name отличается, необходимо сделать дополнительные проверки, чтобы убедиться что это не мой код вошёл в исключения, а какой-то баг активировал код
-        if ((name != Name(messageSource)) && (name != $"[b][color={color}][{jobPlayer}] {Name(messageSource)}[/color][/b]") && ((jobPlayer == null) && (color == null) && (name != Name(messageSource)) ))
+        if ((name != Name(messageSource)) || (name != $"[b][color={color}][{jobPlayer}] {Name(messageSource)}[/color][/b]"))
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} as {name} on {channel.LocalizedName}: {message}");
         else
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} on {channel.LocalizedName}: {message}");
