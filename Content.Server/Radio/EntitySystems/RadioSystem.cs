@@ -167,7 +167,7 @@ public sealed class RadioSystem : EntitySystem
         }
 
         // Так как теперь у нас name отличается, необходимо сделать дополнительные проверки, чтобы убедиться что это не мой код вошёл в исключения, а какой-то баг активировал код
-        if ((name != Name(messageSource)) || (name != newName))
+        if ((name != Name(messageSource)) && (name != newName))
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} as {name} on {channel.LocalizedName}: {message}");
         else
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} on {channel.LocalizedName}: {message}");
