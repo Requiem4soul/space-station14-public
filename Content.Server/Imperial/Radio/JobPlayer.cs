@@ -153,7 +153,7 @@ public sealed class JobPlayer : EntitySystem
 	/// <summary>
     /// Для EnityUid ищется карта в руках или в пда. Если карта нашлась, мы смотрим какая там работа и достаём её
     /// </summary>
-    /// <param name="uid"></param>
+    /// <param name="uid"> uid игрока, у которого мы ищем карту</param>
     /// <returns></returns>
     public string? GetJobPlayer(EntityUid uid)
     {
@@ -193,7 +193,7 @@ public sealed class JobPlayer : EntitySystem
     /// <summary>
     /// Метод, который отвечает за подбор цвета для должности. Используется словарь, который работает по О(1), что быстрее if и подобного
     /// </summary>
-    /// <param name="jobPlayer"></param>
+    /// <param name="jobPlayer"> Нужно получить из метода GetJobPlayer. Или же вставляйте сюда свою string? работу, но нужно привести её к нижниму регистру для словаря. Метод ваш_стринг.ToLower()</param>
     /// <returns></returns>
     public string? GetColorPlayer(string? jobPlayer)
     {
@@ -213,7 +213,7 @@ public sealed class JobPlayer : EntitySystem
     }
 
     /// <summary>
-    /// Данный метод, используя два прошлых метода, формирует уже необходимый name, который и будет отображён в рации
+    /// Данный метод, используя два прошлых метода, формирует уже необходимый name, который и будет отображён в рации. На самом деле, его можно применять и к ChatSystem.cs
     /// </summary>
     /// <param name="uid"> id отправителя. В оригинальном коде рации messageSource</param>
     /// <param name="name"> string?. Это по сути то, что будет указано в отправителе. Раньше там писалось просто имя</param>
@@ -238,7 +238,7 @@ public sealed class JobPlayer : EntitySystem
         // Определяем какой цвет должен быть у данной должности
         string? nameColorPlayer = GetColorPlayer(nameJobPlayer);
 
-        // Если всё сработало правильно, будет работать этот код. Я даже не могу придумать случаев, когда будет работать не это условие, а rturn ниже
+        // Если всё сработало правильно, будет работать этот код. Я даже не могу придумать случаев, когда будет работать не это условие, а return вконце метода
         if ((nameColorPlayer != null) && (nameJobPlayer != null))
         {
             // Тут идёт формирование как раз необходимого имени с должностью и цветом
