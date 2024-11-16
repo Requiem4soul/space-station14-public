@@ -238,6 +238,7 @@ public sealed partial class ChatSystem : SharedChatSystem
                 return;
             }
         }
+		Log.Info("Привет");
 
         // Otherwise, send whatever type.
         switch (desiredType)
