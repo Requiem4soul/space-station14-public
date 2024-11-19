@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Content.Server.Access.Systems;
 using Robust.Shared.Utility;
 
@@ -174,11 +175,13 @@ public sealed class JobPlayer : EntitySystem
                 // Перевод 2
                 if (playerJob == "Centcom Quarantine Officer")
                 {
-                    playerJob = $"Офицер Специальных Операций";
+                    playerJob = $"РХБЗЗ";
                 }
 
                 // Делаем начало должности с заглавной буквы и сохраняем в playerJob
                 playerJob = char.ToUpper(playerJob[0]) + playerJob.Substring(1);
+                // Уберём лишние символы "!?", которые могут ломать в целом вывод сообщения в радио канале
+                playerJob = Regex.Replace(playerJob, @"[^a-zA-Zа-яА-Я ]", "");
                 // Убрав лишние пробелы, передаём полученное значение
                 return playerJob.Trim();
 
