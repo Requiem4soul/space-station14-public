@@ -164,10 +164,8 @@ public sealed class RadioSystem : EntitySystem
             RaiseLocalEvent(receiver, ref ev);
         }
 
-        // Imperial "Отображение должностей в рации" Start
-        //if (name != Name(messageSource))
-        if ((name != Name(messageSource)) && (name != newName))
-            // Imperial "Отображение должностей в рации" End
+
+        if ((name != Name(messageSource)) && (name != newName)) // Imperial "Отображение должностей в рации".
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} as {name} on {channel.LocalizedName}: {message}");
         else
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} on {channel.LocalizedName}: {message}");
