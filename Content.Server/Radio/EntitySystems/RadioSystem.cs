@@ -84,14 +84,12 @@ public sealed class RadioSystem : EntitySystem
             ? mask.VoiceName
             : MetaData(messageSource).EntityName;
 
-        // Если из-за отображений должностей что-то сломается после какого-то обновления, то расскоментируйте данный код и закомментируйте код ниже, который я укажу. Данные действия просто вернут старый код
+        // Imperial "Отображение должностей в рации" Start
         // name = FormattedMessage.EscapeText(name);
 
-        // В случае поломки комментируй данный код до "SpeechVerbPrototype speech;"
-        // Почему бы просто сразу в name не сохранять? Потому что потом проверять надо будет, и там без данной переменной никак. Не будем же мы проверять: "if (name != name)". Если это убрать, у админов постоянно будет true в самой нижней проверке этого метода
         string? newName = _jobPlayer.CompletedJobAndPlayer(messageSource, name);
-        // Тут уже мы делаем необходимый name
         name = newName;
+        // Imperial "Отображение должностей в рации" End
 
         SpeechVerbPrototype speech;
         if (mask != null
@@ -166,8 +164,10 @@ public sealed class RadioSystem : EntitySystem
             RaiseLocalEvent(receiver, ref ev);
         }
 
-        // Так как теперь у нас name отличается, необходимо сделать дополнительные проверки, чтобы убедиться что это не мой код вошёл в исключения, а какой-то баг активировал код
+        // Imperial "Отображение должностей в рации" Start
+        //if (name != Name(messageSource))
         if ((name != Name(messageSource)) && (name != newName))
+            // Imperial "Отображение должностей в рации" End
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} as {name} on {channel.LocalizedName}: {message}");
         else
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} on {channel.LocalizedName}: {message}");
