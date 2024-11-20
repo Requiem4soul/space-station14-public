@@ -74,7 +74,7 @@ public sealed class JobPlayerAndColor : EntitySystem
                 // Делаем начало должности с заглавной буквы и сохраняем в playerJob
                 playerJob = char.ToUpper(playerJob[0]) + playerJob.Substring(1);
                 // Уберём лишние символы "!?", которые могут ломать в целом вывод сообщения в радио канале
-                playerJob = Regex.Replace(playerJob, @"[^a-zA-Zа-яА-Я ]", "");
+                playerJob = Regex.Replace(playerJob, @"[^a-zA-Zа-яА-ЯёЁ ]", "");
                 // Убрав лишние пробелы, передаём полученное значение
                 return playerJob.Trim();
 
