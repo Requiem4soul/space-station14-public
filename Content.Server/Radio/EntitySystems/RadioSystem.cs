@@ -165,7 +165,7 @@ public sealed class RadioSystem : EntitySystem
         }
 
         // Imperial JobPlayerAndColor Start
-        // if (name != Name(messageSource)
+        // if (name != Name(messageSource))
         if ((name != Name(messageSource)) && (name != newName))
         // Imperial JobPlayerAndColor End
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} as {name} on {channel.LocalizedName}: {message}");
