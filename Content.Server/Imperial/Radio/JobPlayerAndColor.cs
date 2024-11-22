@@ -44,12 +44,11 @@ public sealed class JobPlayerAndColor : EntitySystem
         }
     }
 
-    // Словарь для перевода должностей и для должностей состоящих не только из букв
+    // Словарь для перевода должностей
         private static readonly Dictionary<string, string> JobTranslations = new()
         {
             { "Central Commander", "Центральное Командование" },
-            { "Centcom Quarantine Officer", "РХБЗЗ" },
-            { "Шефповар", "Шеф повар" }
+            { "Centcom Quarantine Officer", "РХБЗЗ" }
         };
 
         private string TranslateJob(string job)
@@ -81,6 +80,8 @@ public sealed class JobPlayerAndColor : EntitySystem
             {
                 // Делаем начало должности с заглавной буквы и сохраняем в playerJob
                 playerJob = char.ToUpper(playerJob[0]) + playerJob.Substring(1);
+                // Заменяем тире, дефисы и минусы на пробелы. Эти символы при форматировании ломают вывод
+                playerJob = Regex.Replace(playerJob, @"[-–—−]", " ");
                 // Уберём лишние символы "!?", которые могут ломать в целом вывод сообщения в радио канале
                 playerJob = Regex.Replace(playerJob, @"[^a-zA-Zа-яА-ЯёЁ ]", "");
                 // Переводим должность через словарь. Если перевода нет, playerJob не меняется
