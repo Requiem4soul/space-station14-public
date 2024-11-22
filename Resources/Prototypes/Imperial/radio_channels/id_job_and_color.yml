@@ -267,10 +267,6 @@
   color: "#aaeeaf"
 
 - type: idColor
-  id: "репортер"
-  color: "lime"
-
-- type: idColor
   id: "музыкант"
   color: "#aaeeaf"
 
@@ -448,10 +444,6 @@
 
 - type: idColor
   id: "медик рхбзз"
-  color: "#C0C0C0"
-
-- type: idColor
-  id: "офицер синий щит"
   color: "#C0C0C0"
 
 - type: idColor

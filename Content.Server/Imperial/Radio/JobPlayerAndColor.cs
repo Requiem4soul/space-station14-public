@@ -44,6 +44,26 @@ public sealed class JobPlayerAndColor : EntitySystem
         }
     }
 
+    // Словарь для перевода должностей и для должностей состоящих не только из букв
+        private static readonly Dictionary<string, string> JobTranslations = new()
+        {
+            { "Central Commander", "Центральное Командование" },
+            { "Centcom Quarantine Officer", "РХБЗЗ" },
+            { "Шефповар", "Шеф повар" }
+        };
+
+        private string TranslateJob(string job)
+        {
+            // Ищем перевод в словаре
+            if (JobTranslations.TryGetValue(job, out var translatedJob))
+            {
+                return translatedJob;
+            }
+
+            // Возвращаем оригинал, если перевода нет
+            return job;
+        }
+
 	/// <summary>
     /// Для EnityUid ищется карта в руках или в пда. Если карта нашлась, мы смотрим какая там работа и достаём её
     /// </summary>
@@ -59,22 +79,12 @@ public sealed class JobPlayerAndColor : EntitySystem
             // Если работа нашлась верно, мы начинаем основной процесс
             if (playerJob != null)
             {
-                // Перевод для некоторых ролей, которые у нас не переведены
-                if (playerJob == "Central Commander")
-                {
-                    playerJob = $"Центральное Командование";
-                }
-
-                // Перевод 2
-                if (playerJob == "Centcom Quarantine Officer")
-                {
-                    playerJob = $"РХБЗЗ";
-                }
-
                 // Делаем начало должности с заглавной буквы и сохраняем в playerJob
                 playerJob = char.ToUpper(playerJob[0]) + playerJob.Substring(1);
                 // Уберём лишние символы "!?", которые могут ломать в целом вывод сообщения в радио канале
                 playerJob = Regex.Replace(playerJob, @"[^a-zA-Zа-яА-ЯёЁ ]", "");
+                // Переводим должность через словарь. Если перевода нет, playerJob не меняется
+                playerJob = TranslateJob(playerJob);
                 // Убрав лишние пробелы, передаём полученное значение
                 return playerJob.Trim();
 
